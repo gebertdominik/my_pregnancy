@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_pregnancy/constants/colors.dart';
-
+import 'package:my_pregnancy/widgets/category_card.dart';
+import 'package:my_pregnancy/widgets/search_bar.dart';
 void main() {
   runApp(MyApp());
 }
@@ -50,38 +51,8 @@ class HomeScreen extends StatelessWidget {
                         .headline4
                         .copyWith(fontWeight: FontWeight.w900),
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 30),
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(29.5),
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: "Search",
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                      child: GridView.count(
-                    crossAxisCount: 2,
-                    childAspectRatio: .85,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                    children: <Widget>[
-                      CategoryCard(
-                        title: "Moja Ciąża",
-                      ),
-                      CategoryCard(title: "Artykuły"),
-                      CategoryCard(title: "Promocje"),
-                      CategoryCard(title: "Quiz"),
-                      CategoryCard(title: "Kontakt"),
-                      CategoryCard(title: "Ustawienia")
-                    ],
-                  ))
+                  SearchBar(),
+                  MainMenu()
                 ],
               ),
             ),
@@ -92,40 +63,46 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class CategoryCard extends StatelessWidget {
-  final String title;
-
-  const CategoryCard({
+class MainMenu extends StatelessWidget {
+  const MainMenu({
     Key key,
-    this.title,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(13),
-          boxShadow: [BoxShadow(color: Colors.black26, offset: Offset(5, 5))]),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: (){},
-          child: Column(
-            children: <Widget>[
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .copyWith(fontSize: 20),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+    return Expanded(
+        child: GridView.count(
+      crossAxisCount: 2,
+      childAspectRatio: .85,
+      crossAxisSpacing: 20,
+      mainAxisSpacing: 20,
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      children: <Widget>[
+        CategoryCard(
+            title: "Moja Ciąża",
+            svgSrc: "assets/icons/my_pregnancy.svg",
+            press: () {}),
+        CategoryCard(
+            title: "Artykuły",
+            svgSrc: "assets/icons/articles.svg",
+            press: () {}),
+        CategoryCard(
+            title: "Promocje",
+            svgSrc: "assets/icons/promotions.svg",
+            press: () {}),
+        CategoryCard(
+            title: "Quiz",
+            svgSrc: "assets/icons/quiz.svg",
+            press: () {}),
+        CategoryCard(
+            title: "Kontakt",
+            svgSrc: "assets/icons/contact.svg",
+            press: () {}),
+        CategoryCard(
+            title: "Ustawienia",
+            svgSrc: "assets/icons/settings.svg",
+            press: () {})
+      ],
+    ));
   }
 }
