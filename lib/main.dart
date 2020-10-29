@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:my_pregnancy/constants/colors.dart';
-import 'package:my_pregnancy/widgets/category_card.dart';
+import 'package:my_pregnancy/widgets/main_menu.dart';
 import 'package:my_pregnancy/widgets/search_bar.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -43,16 +45,62 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Dzień dobry!",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4
-                        .copyWith(fontWeight: FontWeight.w900),
+                children: [PregnancyProgress(), SearchBar(), MainMenu()],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PregnancyProgress extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: [
+          Column(
+            children: [
+              Text(
+                "Dzień dobry!",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    .copyWith(fontWeight: FontWeight.w900),
+              ),
+              Text(
+                "To już 7 miesiąc",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5
+                    .copyWith(fontWeight: FontWeight.w700),
+              ),
+              Text("Do porodu pozostało 45 dni")
+            ],
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical:20),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 150,
+                    child: LiquidCircularProgressIndicator(
+                      value: 0.8,
+                      valueColor: AlwaysStoppedAnimation(Colors.pink),
+                      // Defaults to the current Theme's accentColor.
+                      backgroundColor: Colors.white,
+                      // Defaults to the current Theme's backgroundColor.
+                      direction: Axis.vertical,
+                      center: Text("32+3",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5
+                              .copyWith(fontWeight: FontWeight.w700)),
+                    ),
                   ),
-                  SearchBar(),
-                  MainMenu()
                 ],
               ),
             ),
@@ -63,46 +111,14 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class MainMenu extends StatelessWidget {
-  const MainMenu({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: GridView.count(
-      crossAxisCount: 2,
-      childAspectRatio: .85,
-      crossAxisSpacing: 20,
-      mainAxisSpacing: 20,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      children: <Widget>[
-        CategoryCard(
-            title: "Moja Ciąża",
-            svgSrc: "assets/icons/my_pregnancy.svg",
-            press: () {}),
-        CategoryCard(
-            title: "Artykuły",
-            svgSrc: "assets/icons/articles.svg",
-            press: () {}),
-        CategoryCard(
-            title: "Promocje",
-            svgSrc: "assets/icons/promotions.svg",
-            press: () {}),
-        CategoryCard(
-            title: "Quiz",
-            svgSrc: "assets/icons/quiz.svg",
-            press: () {}),
-        CategoryCard(
-            title: "Kontakt",
-            svgSrc: "assets/icons/contact.svg",
-            press: () {}),
-        CategoryCard(
-            title: "Ustawienia",
-            svgSrc: "assets/icons/settings.svg",
-            press: () {})
-      ],
-    ));
-  }
+Path _buildHeartPath() {
+  return Path()
+    ..moveTo(55, 15)
+    ..cubicTo(55, 12, 50, 0, 30, 0)
+    ..cubicTo(0, 0, 0, 37.5, 0, 37.5)
+    ..cubicTo(0, 55, 20, 77, 55, 95)
+    ..cubicTo(90, 77, 110, 55, 110, 37.5)
+    ..cubicTo(110, 37.5, 110, 0, 80, 0)
+    ..cubicTo(65, 0, 55, 12, 55, 15)
+    ..close();
 }
