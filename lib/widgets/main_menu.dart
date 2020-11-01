@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_pregnancy/screens/articles_screen.dart';
+import 'package:my_pregnancy/screens/contact_screen.dart';
+import 'package:my_pregnancy/screens/my_pregnancy_screen.dart';
+import 'package:my_pregnancy/screens/promotions_screen.dart';
+import 'package:my_pregnancy/screens/quiz_screen.dart';
+import 'package:my_pregnancy/screens/settings_screen.dart';
 import 'package:my_pregnancy/widgets/category_card.dart';
 
 class MainMenu extends StatelessWidget {
@@ -10,37 +16,88 @@ class MainMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: GridView.count(
-          crossAxisCount: 2,
-          childAspectRatio: .85,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          children: <Widget>[
-            CategoryCard(
-                title: "Moja Ciąża",
-                svgSrc: "assets/icons/my_pregnancy.svg",
-                press: () {}),
-            CategoryCard(
-                title: "Artykuły",
-                svgSrc: "assets/icons/articles.svg",
-                press: () {}),
-            CategoryCard(
-                title: "Promocje",
-                svgSrc: "assets/icons/promotions.svg",
-                press: () {}),
-            CategoryCard(
-                title: "Quiz",
-                svgSrc: "assets/icons/quiz.svg",
-                press: () {}),
-            CategoryCard(
-                title: "Kontakt",
-                svgSrc: "assets/icons/contact.svg",
-                press: () {}),
-            CategoryCard(
-                title: "Ustawienia",
-                svgSrc: "assets/icons/settings.svg",
-                press: () {})
-          ],
-        ));
+      crossAxisCount: 2,
+      childAspectRatio: .85,
+      crossAxisSpacing: 20,
+      mainAxisSpacing: 20,
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      children: <Widget>[
+        CategoryCard(
+          title: "Moja Ciąża",
+          svgSrc: "assets/icons/my_pregnancy.svg",
+          press: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return MyPregnancyScreen();
+                },
+              ),
+            );
+          },
+        ),
+        CategoryCard(
+            title: "Artykuły",
+            svgSrc: "assets/icons/articles.svg",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ArticlesScreen();
+                  },
+                ),
+              );
+            },),
+        CategoryCard(
+            title: "Promocje",
+            svgSrc: "assets/icons/promotions.svg",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return PromotionsScreen();
+                  },
+                ),
+              );
+            },),
+        CategoryCard(
+            title: "Quiz", svgSrc: "assets/icons/quiz.svg", press: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return QuizScreen();
+              },
+            ),
+          );
+        },),
+        CategoryCard(
+            title: "Kontakt", svgSrc: "assets/icons/contact.svg", press: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return ContactScreen();
+              },
+            ),
+          );
+        },),
+        CategoryCard(
+            title: "Ustawienia",
+            svgSrc: "assets/icons/settings.svg",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SettingsScreen();
+                  },
+                ),
+              );
+            },)
+      ],
+    ));
   }
 }
