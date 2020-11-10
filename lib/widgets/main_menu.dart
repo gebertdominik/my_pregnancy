@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:my_pregnancy/models/promotion.dart';
 import 'package:my_pregnancy/screens/articles_screen.dart';
 import 'package:my_pregnancy/screens/contact_screen.dart';
 import 'package:my_pregnancy/screens/my_pregnancy_screen.dart';
@@ -6,6 +8,7 @@ import 'package:my_pregnancy/screens/promotions_screen.dart';
 import 'package:my_pregnancy/screens/quiz_screen.dart';
 import 'package:my_pregnancy/screens/settings_screen.dart';
 import 'package:my_pregnancy/widgets/category_card.dart';
+import 'package:provider/provider.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({
@@ -57,7 +60,12 @@ class MainMenu extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return PromotionsScreen();
+                    return MultiProvider(
+                      providers: [
+                        StreamProvider<List<Promotion>>(create: (_) => streamOfPromotions(), initialData: []),
+                    ],
+                      child: PromotionsScreen(),
+                    );
                   },
                 ),
               );
@@ -100,4 +108,10 @@ class MainMenu extends StatelessWidget {
       ],
     ));
   }
+}
+
+
+Stream<List<Promotion>> streamOfPromotions() {
+  var ref = Firestore.instance.collection('promotions');
+  return ref.snapshots().map((list) => list.documents.map((doc) => Promotion.fromFirestore(doc)).toList());
 }
