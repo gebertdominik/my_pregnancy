@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_pregnancy/constants/colors.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -15,7 +18,8 @@ class SettingsScreen extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
+              child:
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
@@ -29,7 +33,8 @@ class SettingsScreen extends StatelessWidget {
                             .copyWith(fontWeight: FontWeight.w900),
                       ),
                     ],
-                  )
+                  ),
+                  SignOutButton()
                 ],
               ),
             ),
@@ -38,4 +43,40 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class SignOutButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child:
+        OutlinedButton(
+          child: Text('Wyloguj'),
+          onPressed: () async {
+            final User user = await _auth.currentUser;
+            if (user == null) {
+              Scaffold.of(context).showSnackBar(const SnackBar(
+                content: Text('Nie jesteś zalogowana'),
+              ));
+              return;
+            }
+            _signOut();
+            _backToMain(context);
+            final String uid = user.uid;
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(uid + ' pozytywnie wylogowany'),
+            ));
+          },
+        ),
+    );
+  }
+}
+
+// Example code for sign out.
+void _signOut() async {
+  await _auth.signOut();
+}
+
+void _backToMain(BuildContext context) {
+  Navigator.popUntil(context, ModalRoute.withName("/"));
 }
