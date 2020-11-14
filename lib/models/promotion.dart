@@ -23,7 +23,7 @@ class Promotion {
   Map<String, dynamic> toJson() => _PromotionToJson(this);
 
   factory Promotion.fromFirestore(DocumentSnapshot documentSnapshot) {
-    Promotion promotion = Promotion.fromJson(documentSnapshot.data);
+    Promotion promotion = Promotion.fromJson(documentSnapshot.data());
     return promotion;
   }
 

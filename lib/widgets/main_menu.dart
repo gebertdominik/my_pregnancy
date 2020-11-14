@@ -112,6 +112,6 @@ class MainMenu extends StatelessWidget {
 
 
 Stream<List<Promotion>> streamOfPromotions() {
-  var ref = Firestore.instance.collection('promotions');
-  return ref.snapshots().map((list) => list.documents.map((doc) => Promotion.fromFirestore(doc)).toList());
+  var ref = FirebaseFirestore.instance.collection('promotions');
+  return ref.snapshots().map((list) => list.docs.map((doc) => Promotion.fromFirestore(doc)).toList());
 }
