@@ -3,7 +3,7 @@ import 'package:flutter_signin_button/button_builder.dart';
 import 'package:my_pregnancy/auth/register_page.dart';
 import 'package:my_pregnancy/constants/colors.dart';
 
-import 'email_password_sign_in_form.dart';
+import 'components/email_password_sign_in_form.dart';
 
 /// Provides a UI to select a authentication type page
 class AuthWidget extends StatelessWidget {

@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_pregnancy/models/promotion.dart';
-import 'package:my_pregnancy/screens/articles_screen.dart';
-import 'package:my_pregnancy/screens/contact_screen.dart';
-import 'package:my_pregnancy/screens/my_pregnancy_screen.dart';
-import 'package:my_pregnancy/screens/promotions_screen.dart';
-import 'package:my_pregnancy/screens/quiz_screen.dart';
-import 'package:my_pregnancy/screens/settings_screen.dart';
-import 'package:my_pregnancy/widgets/category_card.dart';
+import 'package:my_pregnancy/screens/articles/articles_screen.dart';
+import 'package:my_pregnancy/screens/contact/contact_screen.dart';
+import 'package:my_pregnancy/screens/my_pregnancy/my_pregnancy_screen.dart';
+import 'package:my_pregnancy/screens/promotions/promotions_screen.dart';
+import 'package:my_pregnancy/screens/quiz/quiz_screen.dart';
+import 'package:my_pregnancy/screens/settings/settings_screen.dart';
+import 'package:my_pregnancy/screens/home/components/category_card.dart';
 import 'package:provider/provider.dart';
 
 class MainMenu extends StatelessWidget {

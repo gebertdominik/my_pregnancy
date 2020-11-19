@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:my_pregnancy/constants/colors.dart';
-import 'package:my_pregnancy/widgets/main_menu.dart';
-import 'package:my_pregnancy/widgets/search_bar.dart';
+import 'package:my_pregnancy/screens/home/components/main_menu.dart';
+import 'package:my_pregnancy/screens/home/components/search_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
