@@ -56,14 +56,6 @@ class EmailPasswordFormState extends State<EmailPasswordForm> {
                 Container(
                   padding: const EdgeInsets.only(top: 16.0),
                   alignment: Alignment.center,
-                  /*child: SignInButton(
-                    Buttons.Email,
-                    text: "Zaloguj",
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        _signInWithEmailAndPassword();
-                      }
-                    },*/
                   child: SignInButtonBuilder(
                     icon: Icons.login,
                     backgroundColor: kDarkButtonColor,
