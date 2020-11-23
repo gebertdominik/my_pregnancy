@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_pregnancy/constants/colors.dart';
 import 'package:my_pregnancy/models/promotion.dart';
-import 'package:provider/provider.dart';
+import 'package:my_pregnancy/screens/promotions/promotions_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PromotionsScreen extends StatelessWidget {
@@ -25,38 +25,53 @@ class PromotionsScreen extends StatelessWidget {
               ),
             ),
           ),
-          _myListView(context)
+          PromotionsList()
         ]),
       ),
     );
   }
 }
 
-Widget _myListView(BuildContext context) {
-  final List<Promotion> promotions = Provider.of<List<Promotion>>(context);
-  return Expanded(
-    child: Container(
-      color: kLightPinkColor,
-      child: ListView.separated(
-        scrollDirection: Axis.vertical,
-        itemCount: promotions.length,
-        itemBuilder: (BuildContext context, int index) {
-          return PromotionListItem(
-              title: promotions[index].title,
-              description: promotions[index].description,
-              image: promotions[index].image,
-              url: promotions[index].url);
-        },
-        separatorBuilder: (BuildContext context, int index) => const Divider(
-          height: 5,
-          thickness: 5,
-          indent: 20,
-          endIndent: 20,
-          color: Colors.white30,
-        ),
-      ),
-    ),
-  );
+class PromotionsList extends StatelessWidget {
+  final PromotionsController _promotionsController = PromotionsController();
+
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _promotionsController.getAllPromotions(),
+      builder: (context, snapshot) {
+        List<Promotion> promotions = snapshot.data;
+        if (promotions == null) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return Expanded(
+          child: Container(
+            color: kLightPinkColor,
+            child: ListView.separated(
+              scrollDirection: Axis.vertical,
+              itemCount: promotions.length,
+              itemBuilder: (BuildContext context, int index) {
+                return PromotionListItem(
+                    title: promotions[index].title,
+                    description: promotions[index].description,
+                    image: promotions[index].image,
+                    url: promotions[index].url);
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(
+                height: 5,
+                thickness: 5,
+                indent: 20,
+                endIndent: 20,
+                color: Colors.white30,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 class PromotionListItem extends StatelessWidget {
@@ -116,14 +131,12 @@ class PromotionListItem extends StatelessWidget {
                       aspectRatio: 1,
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(25),
-                            image: DecorationImage(
-                                image: NetworkImage(image != null
-                                    ? image
-                                    : 'https://cdn.bike24.net/i/mb/fc/57/b5/markenshop-rausverkauf-logo-228x228-7752.png')
-                        ),
-
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(25),
+                          image: DecorationImage(
+                              image: NetworkImage(image != null
+                                  ? image
+                                  : 'https://cdn.bike24.net/i/mb/fc/57/b5/markenshop-rausverkauf-logo-228x228-7752.png')),
                         ),
                       ),
                     ),
