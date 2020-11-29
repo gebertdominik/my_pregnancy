@@ -100,7 +100,7 @@ class MainMenu extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return SettingsScreen();
+                  return NewSettingsScreen();
                 },
               ),
             );
